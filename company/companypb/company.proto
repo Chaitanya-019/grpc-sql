@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package company;
+option go_package = "companypb";
+
+message Company{
+    int64 id = 1;
+    string name = 2;
+    string person = 3;
+}
+
+message GetRequest {
+    int64 id =1;
+}
+message GetResponse{
+    Company company=1;
+}
+
+message PostRequest {
+    string name = 1;
+    string person = 2;
+}
+
+message PostResponse{
+    int64 id = 1;
+}
+
+message UpdateRequest{
+    Company company=1;
+}
+
+message UpdateResponse{
+    Company company = 1;
+}
+
+message DeleteRequest{
+    int64 id = 1;
+}
+
+message DeleteResponse {
+    Company company = 1;
+}
+
+service CompanyService{
+    // This gives the company details from its ID
+    rpc Get (GetRequest) returns (GetResponse){};
+
+    //This is used to add company name and creator
+    rpc Post(PostRequest) returns (PostResponse){};
+
+    //This is used to update an entry from the table
+    rpc Update(UpdateRequest) returns (UpdateResponse){};
+    
+    //This is used to delete an element from the table by its ID
+    rpc Delete(DeleteRequest) returns (DeleteResponse){};
+
+}
